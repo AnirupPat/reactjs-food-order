@@ -1,8 +1,22 @@
-import cartContext from './cart-context';
+import CartContext from './cart-context';
 
 const CartProvider = props => {
+    const handleAddItemToCart = (item) => {
+
+    }
+
+    const handleRemoveItemFromCart = id => {
+
+    }
+
+    const cartContext = {
+        items: [],
+        totalAmount: 0,
+        addItem: handleAddItemToCart,
+        removeItem: handleRemoveItemFromCart
+    }
     return (
-        <cartContext.Provider>{props.children}</cartContext.Provider>
+        <CartContext.Provider value={cartContext}>{props.children}</CartContext.Provider>
     );
 }
 
