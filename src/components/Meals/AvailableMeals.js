@@ -7,6 +7,8 @@ import Card from "../UI/Card";
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [httpError, setHttpError] = useState();
+
   useEffect(() => {
     const fetchMeals = async() => {
       setIsLoading(true);
@@ -25,8 +27,12 @@ const AvailableMeals = () => {
       setMeals(loadedMeals);
       setIsLoading(false);
     }
-
-    fetchMeals();
+    
+      fetchMeals().catch(error => {
+        setIsLoading(false);
+        setHttpError(error.message);
+      });
+    
     
   }, []);
 
@@ -34,6 +40,14 @@ const AvailableMeals = () => {
     return (
       <section className={classes.mealsLoading}>
         <p>Loading...</p>
+      </section>
+    )
+  }
+
+  if(httpError) {
+    return (
+      <section className={classes.mealsError}>
+        <p>{httpError}</p>
       </section>
     )
   }
